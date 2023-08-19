@@ -21,17 +21,27 @@ const Allblogs = () => {
     }, []);
 
     return (
-        <section className="text-gray-600 body-font">
+        <section className="text-gray-600 body-font bg-gray-100">
             <div className="container px-5 py-24 mx-auto">
                 <div className="flex flex-wrap -m-4">
-                    {bloggers && bloggers.flatMap(blogger => 
-                        blogger.blogs.map(blog => (
+                    {bloggers.flatMap(blogger =>
+                        (blogger.blogs || []).sort((a, b) => new Date(b.date) - new Date(a.date)).map(blog => (
                             <div key={blog.date} className="p-4 md:w-1/3">
-                                <div className="h-full border-2 border-gray-300 hover:border-gray-400 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                                    <div className="p-6 bg-gray-700">
-                                        <h2 className="tracking-widest text-xs title-font font-medium text-pink-500 mb-1">{blog.title}</h2>
-                                        <p className="leading-relaxed text-white mb-3">{blog.content}</p>
-                                        <p className="text-gray-400 text-sm">{new Date(blog.date).toLocaleDateString()}</p>
+                                <div className="h-full border-2 border-gray-300 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out">
+                                    <div className="p-6 bg-gray-400 flex flex-col justify-between">
+                                        <div>
+                                            <h2 className="mb-2 text-lg title-font font-semibold text-black">Title:{blog.title}</h2>
+                                            <p className="leading-relaxed text-base mb-3">Content:{blog.content}</p>
+                                            <p className="leading-relaxed mb-3 text-sm font-medium">BY:{blogger.email}</p>
+                                            <p className="text-xs text-gray-700">Date:{new Date(blog.date).toLocaleDateString()}</p>
+                                        </div>
+                                        <a className="mt-2 text-white inline-flex items-center bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 rounded px-3 py-1 transition duration-300 ease-in-out">
+                                            Learn More
+                                            <svg className="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                                                <path d="M5 12h14"></path>
+                                                <path d="M12 5l7 7-7 7"></path>
+                                            </svg>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -40,7 +50,8 @@ const Allblogs = () => {
                 </div>
             </div>
         </section>
-    );
-    
+    )
+}
 
-export default Allblogs;
+
+export default Allblogs

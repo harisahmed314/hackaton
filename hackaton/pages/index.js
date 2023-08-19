@@ -1,5 +1,6 @@
 import Header from "@/pages/componenets/Header";
-import Allblogs from "./componenets/allblogs";
+import Allblogs from "./componenets/Allblogs";
+
 
 
 export default function Home() {
