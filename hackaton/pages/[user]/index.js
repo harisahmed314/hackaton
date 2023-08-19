@@ -134,7 +134,28 @@ export default function Dashboard() {
                 setMessage('An error occurred while updating the blog.');
             });
     }
-    
+    const submitBlog = () => {
+        fetch('/api/saveblog', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email: name, title: blogTitle, content: blogContent})
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                setMessage('Blog saved successfully');
+                setBlogTitle('');
+                setBlogContent('');
+            } 
+        })
+        .catch(err => {
+            console.error(err);
+            setMessage('An error occurred.');
+        });
+    }
+
 
 
 
@@ -154,9 +175,28 @@ export default function Dashboard() {
                                     {showBlogForm ? "Close Form" : "Add Blogs"}
                                 </button>
 
-                                {showBlogForm && (
+                               {showBlogForm && (
                                     <div className="mt-4">
-                                        {/* Add blog form contents */}
+                                        <input 
+                                            type="text" 
+                                            value={blogTitle}
+                                            onChange={(e) => setBlogTitle(e.target.value)}
+                                            placeholder="Blog Title" 
+                                            className="px-4 py-2 border rounded mb-2 w-full" 
+                                        />
+                                        <textarea 
+                                            value={blogContent}
+                                            onChange={(e) => setBlogContent(e.target.value)}
+                                            placeholder="Blog Content" 
+                                            className="px-4 py-2 border rounded w-full h-40 mb-2"
+                                        ></textarea>
+                                        <button 
+                                            onClick={submitBlog}
+                                            className="bg-indigo-500 hover:bg-indigo-600 text-white px-5 py-2 rounded-md"
+                                        >
+                                            Add
+                                        </button>
+                                        {message && <p className="mt-4 text-red-500">{message}</p>}
                                     </div>
                                 )}
 

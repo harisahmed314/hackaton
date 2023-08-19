@@ -1,8 +1,11 @@
 {
   "name": "hackaton",
+  "homepage": "https://harisahmed314.guthub.io/hackaton",
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -11,6 +14,7 @@
   "dependencies": {
     "autoprefixer": "10.4.15",
     "bcryptjs": "^2.4.3",
+    "gh-pages": "^6.0.0",
     "mongodb": "^5.7.0",
     "next": "13.4.19",
     "postcss": "8.4.28",
